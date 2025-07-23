@@ -30,6 +30,6 @@ class Alien(Sprite):
         return (self.rect.bottom >= screen_rect.bottom) or (self.rect.top <= 0)
 
     def update(self):
-        """Move the alien right or left."""
+        """Move the alien *up or down*."""
         self.y += self.settings.alien_speed * self.settings.fleet_direction
         self.rect.y = self.y

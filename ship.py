@@ -15,7 +15,7 @@ class Ship:
         self.image = pygame.transform.rotate(self.image, -90)
         self.rect = self.image.get_rect()
 
-        # Start each new ship at the bottom center of the screen.
+        # Start each new ship at the *left* center of the screen.
         self.rect.midleft = self.screen_rect.midleft
 
         # Store a float for the ship's exact *vertical* position.
@@ -32,7 +32,7 @@ class Ship:
 
     def update(self):
         """Update the ship's position based on movement flags."""
-        # Update the ship's x value, not the rect.
+        # Update the ship's *y* value, not the rect.
         if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
             self.y += self.settings.ship_speed
         if self.moving_up and self.rect.top > 0:
