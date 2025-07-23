@@ -135,13 +135,13 @@ class AlienInvasion:
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             self._ship_hit()
 
-        # Look for aliens hitting the bottom of the screen.
-        self._check_aliens_bottom()
+        # Look for aliens hitting the *left* of the screen.
+        self._check_aliens_leftscreen()
 
-    def _check_aliens_bottom(self):
-        """Check if any aliens have reached the bottom of the screen."""
+    def _check_aliens_leftscreen(self):
+        """Check if any aliens have reached the *left* of the screen."""
         for alien in self.aliens.sprites():
-            if alien.rect.bottom >= self.settings.screen_height:
+            if alien.rect.left <= self.settings.screen_width:
                 # Treat this the same as if the ship got hit.
                 self._ship_hit()
                 break
@@ -154,14 +154,14 @@ class AlienInvasion:
         alien_width, alien_height = alien.rect.size
 
         current_x, current_y = alien_width, alien_height
-        while current_y < (self.settings.screen_height - 3 * alien_height):
-            while current_x < (self.settings.screen_width - 2 * alien_width):
+        while current_x < (self.settings.screen_width - 3 * alien_width):
+            while current_y < (self.settings.screen_height - 2 * alien_height):
                 self._create_alien(current_x, current_y)
-                current_x += 2 * alien_width
+                current_y += 2 * alien_height
 
-            # Finished a row; reset x value, and increment y value.
-            current_x = alien_width
-            current_y += 2 * alien_height
+            # Finished a *column*; reset *y* value, and increment *x* value.
+            current_y = alien_height
+            current_x += 2 * alien_height
 
     def _create_alien(self, x_position, y_position):
         """Create an alien and place it in the fleet."""
@@ -181,7 +181,7 @@ class AlienInvasion:
     def _change_fleet_direction(self):
         """Drop the entire fleet and change the fleet's direction."""
         for alien in self.aliens.sprites():
-            alien.rect.y += self.settings.fleet_drop_speed
+            alien.rect.x -= self.settings.fleet_drop_speed
         self.settings.fleet_direction *= -1
 
     def _update_screen(self):
