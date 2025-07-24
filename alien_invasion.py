@@ -141,7 +141,7 @@ class AlienInvasion:
     def _check_aliens_leftscreen(self):
         """Check if any aliens have reached the *left* of the screen."""
         for alien in self.aliens.sprites():
-            if alien.rect.left <= self.settings.screen_width:
+            if alien.rect.left <= 0:
                 # Treat this the same as if the ship got hit.
                 self._ship_hit()
                 break
