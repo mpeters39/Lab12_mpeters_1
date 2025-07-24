@@ -154,19 +154,19 @@ class AlienInvasion:
         alien_width, alien_height = alien.rect.size
 
         current_x, current_y = alien_width, alien_height
-        while current_x < (self.settings.screen_width - 3 * alien_width):
+        while current_x > (2 * alien_width):
             while current_y < (self.settings.screen_height - 2 * alien_height):
                 self._create_alien(current_x, current_y)
                 current_y += 2 * alien_height
 
             # Finished a *column*; reset *y* value, and increment *x* value.
             current_y = alien_height
-            current_x += 2 * alien_height
+            current_x -= 2 * alien_width
 
     def _create_alien(self, x_position, y_position):
         """Create an alien and place it in the fleet."""
         new_alien = Alien(self)
-        new_alien.x = x_position
+        new_alien.y = y_position
         new_alien.rect.x = x_position
         new_alien.rect.y = y_position
         self.aliens.add(new_alien)
